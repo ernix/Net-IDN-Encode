@@ -5,7 +5,7 @@ BEGIN { binmode STDOUT, ':utf8'; binmode STDERR, ':utf8'; }
 
 use Net::IDN::Encode qw(:all);
 
-use Test::More tests => 1 + 13;
+use Test::More tests => 1 + 14;
 use Test::NoWarnings;
 
 use Net::IDN::Encode qw(:all);
@@ -17,6 +17,7 @@ is(eval{domain_to_ascii('www.jürg.xn--mller-kva.com', )} || $@, 'www.xn--jrg-ho
 is(eval{domain_to_ascii('www.a.b。c．d｡com', )} || $@, 'www.a.b.c.d.com', 'mixed dots');
 
 is(eval{domain_to_ascii("www.\x{1F985}.example", AllowUnassigned => 1)} || $@, 'www.xn--4s9h.example', 'Unicode 9.0 emoji');
+is(eval{domain_to_ascii("www.\x{1F9B4}.example", AllowUnassigned => 1)} || $@, 'www.xn--hu9h.example', 'Unicode 11.0 emoji');
 
 is(eval{domain_to_ascii('www.ä ö ü ß.example', 'UseSTD3ASCIIRules' => 0)}, 'www.xn--   -7kav3ivb.example', 'blank (without STD3 rules) (to_unicode)') or diag $@;
 is(eval{domain_to_ascii('www.ä ö ü ß.example', 'UseSTD3ASCIIRules' => 1)}, undef, 'blank (with STD3 rules) (to_unicode)') or diag $@;

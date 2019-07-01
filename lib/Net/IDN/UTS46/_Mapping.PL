@@ -22,6 +22,9 @@ while(<IdnaMappingTable>) {
   if(m/^\s*#\s*IdnaMappingTable-(\d+)\.(\d+)\.(\d+)\b/i) {
     $UNICODE_VERSION = sprintf "%d.%03d_%03d", $1, $2, $3;
     next;
+  } elsif(m/^\s*#\s*Version:\s*(\d+)\.(\d+)\.(\d+)\b/i) {
+    $UNICODE_VERSION = sprintf "%d.%03d_%03d", $1, $2, $3;
+    next;
   } elsif(m/^#\sDate:\s*(\d\d\d\d+)-(\d\d)-(\d\d)\b/i) {
     $UNICODE_DATE = sprintf "%04d%02d%02d", $1, $2, $3;
     next;
